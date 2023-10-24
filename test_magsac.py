@@ -151,10 +151,10 @@ def test(model, test_loader, opt):
                 # evaluation of relative pose (essential matrix)
                 # print(inliers.shape)
                 cv2.recoverPose(
-                    E,
-                    np.ascontiguousarray(pts1_1).astype(np.float64),
-                    np.ascontiguousarray(pts2_2).astype(np.float64),
-                    K, R, t, inliers
+                    E=E,
+                    points1=np.ascontiguousarray(pts1_1).astype(np.float64),
+                    points2=np.ascontiguousarray(pts2_2).astype(np.float64),
+                    cameraMatrix=K, R=R, t=t, mask=np.expand_dims(inliers, -1)
                 )
 
                 dR, dT = pose_error(R, gt_R[b], t, gt_t[b])
