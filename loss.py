@@ -144,7 +144,7 @@ class MatchLoss(object):
             if torch.isnan(e_l.mean()).any():
                 print("nan values in pose loss")# .1*
 
-            if topk_flag:
+            if topk_flag and e_l.shape[0] > k:
                 topk_indices = torch.topk(e_l.mean(1), k=k, largest=False).indices
                 essential_loss.append(e_l[topk_indices].mean())
             else:
