@@ -29,7 +29,7 @@ class GumbelSoftmaxSampler():
         else:
             logits = logits.to(self.dtype).to(self.device).repeat([self.batch_size, 1])
 
-        if selected is None:
+        if selected is None and self.num_samples <= logits.shape[-1]:
             gumbels = self.gumbel_dist.sample(logits.shape)
             gumbels = (logits + gumbels)/self.tau
             y_soft = gumbels.softmax(-1)
